@@ -4,12 +4,6 @@ set -e  # Stop script on any error
 set -u  # Exit on unset variable
 set -o pipefail  # Catch errors in pipelines
 
-echo "=== Updating system and installing maven ==="
-sudo apt update -y
-sudo apt install maven -y
-mvn clean package
-mvn -v
-
 echo "=== Updating system and installing Java (OpenJDK 17) ==="
 sudo apt update -y
 sudo apt install openjdk-17-jdk -y
@@ -60,5 +54,10 @@ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip
 sudo apt-get install unzip -y
 unzip awscliv2.zip
 sudo ./aws/install
+
+echo "=== Updating system and installing maven ==="
+sudo apt update -y
+sudo apt install maven -y
+mvn -v
 
 echo "=== All installations completed successfully ==="

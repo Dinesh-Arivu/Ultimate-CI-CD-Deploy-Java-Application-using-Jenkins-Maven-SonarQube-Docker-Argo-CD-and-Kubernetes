@@ -9,7 +9,7 @@ pipeline {
     stage('Checkout') {
       steps {
         sh 'echo passed'
-        //git branch: 'main', url: 'https://github.com/Dinesh-Arivu/Ultimate-CI-CD-Deploy-Java-Application-using-Jenkins-Maven-SonarQube-Docker-Argo-CD-and-Kubernetes.git'
+        git branch: 'main', url: 'https://github.com/Dinesh-Arivu/Ultimate-CI-CD-Deploy-Java-Application-using-Jenkins-Maven-SonarQube-Docker-Argo-CD-and-Kubernetes.git'
       }
     }
     stage('Build and Test') {

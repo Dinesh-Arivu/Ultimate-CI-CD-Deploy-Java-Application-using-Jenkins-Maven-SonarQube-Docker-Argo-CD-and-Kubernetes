@@ -4,6 +4,12 @@ set -e  # Stop script on any error
 set -u  # Exit on unset variable
 set -o pipefail  # Catch errors in pipelines
 
+echo "=== Updating system and installing maven ==="
+sudo apt update -y
+sudo apt install maven -y
+mvn clean package
+mvn -v
+
 echo "=== Updating system and installing Java (OpenJDK 17) ==="
 sudo apt update -y
 sudo apt install openjdk-17-jdk -y
@@ -35,13 +41,6 @@ sudo chmod 666 /var/run/docker.sock
 echo "=== Pulling and running SonarQube container ==="
 # SonarQube requires at least 2GB RAM; can fail otherwise
 docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
-
-echo "=== Installing Trivy ==="
-sudo apt-get install wget apt-transport-https gnupg lsb-release -y
-wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
-echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/trivy.list > /dev/null
-sudo apt-get update
-sudo apt-get install trivy -y
 
 echo "=== Install kubectl ==="
 sudo apt update
